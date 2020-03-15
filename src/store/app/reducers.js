@@ -3,15 +3,22 @@ import {
 	CHANGE_TODO,
 	CHANGE_ACTIVE_TITLE,
 	CHANGE_ACTIVE_TITLE_IS_UP,
-	CHANGE_IS_TODO_LOADED
+	CHANGE_IS_TODO_LOADED,
+	CHANGE_ACTIVE_COLUMNS,
+	CHANGE_COLUMNS_KEYS,
+	CHANGE_COLUMNS_STATUS,
+	CHANGE_ACTIVE_TITLES
 } from './actions'
 
 const defaultState = {
-  activeTitle: 'id',
-  activeTitleIsUp: false,
-  isTodoLoaded: null,
-  todo: null,
-  todoToRender : null
+  activeTitle: localStorage.getItem('activeTitle') || 'id',
+  activeTitleIsUp: localStorage.getItem('activeTitleIsUp') === 'true',
+  isTodoLoaded: localStorage.getItem('isTodoLoaded') || null,
+  todo: JSON.parse(localStorage.getItem('todo')) || null,
+  todoToRender : JSON.parse(localStorage.getItem('todoToRender')) || null,
+  activeColumns: JSON.parse(localStorage.getItem('activeColumns'))  || null,
+  columnsStatus: JSON.parse(localStorage.getItem('columnsStatus')) || null,
+  activeTitles: []
 }
 
 
@@ -45,6 +52,22 @@ export const appReducer = (state = defaultState, action) => {
 		    	...state,
 		    	isTodoLoaded: action.payload
 		    };
+		case CHANGE_ACTIVE_COLUMNS:
+		    return {
+		    	...state,
+		    	activeColumns: action.payload
+		    };
+		case CHANGE_COLUMNS_STATUS:
+		    return {
+		    	...state,
+		    	columnsStatus: action.payload
+		    };
+		case CHANGE_ACTIVE_TITLES:
+		    return {
+		    	...state,
+		    	activeTitles: action.payload
+		    };
+
 	}
 	return state
 }

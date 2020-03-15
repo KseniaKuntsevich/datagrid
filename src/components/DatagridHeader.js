@@ -1,11 +1,14 @@
 import React from 'react';
 
-function DatagridHeader({ titles }) {
-
+function DatagridHeader({ rows }) {
   return (
-    <div className='row'>
-      {titles.map((title, i) => (<div className="col" key={i}>{title}</div>))}
-    </div>
+  	<div style={{width: '130%'}} className='shadow bg-light container-fluid' >
+	  	{rows.map((row, j) => (
+	  		<div className="" style={{width: '100%'}} key={j}>
+	  		  { row }
+	  		</div>
+	  	))}
+  	</div>
   );
 }
 

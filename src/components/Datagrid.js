@@ -3,7 +3,7 @@ import React from 'react';
 function Datagrid({ content }) {
 
   return (
-    <div className="container">
+    <div className="">
       {content.header}
       {content.body}
     </div>

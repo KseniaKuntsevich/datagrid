@@ -1,25 +1,28 @@
 import React from 'react';
 import { FixedSizeList as List } from 'react-window';
 
-function DatagridTable({ todo }) {
+function DatagridTable({ todo, activeColumns, onClick }) {
 
 const Row = ({ index, style }) => (
-  <div style={style} className="border-top overflow-hidden p-2">
-    <div className="row">
-      <div className="col">{todo[index].id}</div>
-      <div className="col">{todo[index].title}</div>
-      <div className="col">{todo[index].completed ? 'true' : 'false'}</div>
-      <div className="col">5</div>
-    </div>
+
+  <div 
+    className={todo[index].isActive ? "row bg-secondary border-top p-3" : "row border-top p-3"}
+    onClick={() => onClick(index)} 
+    style={style}
+    >
+    {activeColumns.map((column, i) => (
+      <div key={i} className="col">{todo[index][column]}</div>
+    ))}
   </div>
 );
+
 
   const ExampleRow = () => (
 	  <List
 	    height={1000}
 	    itemCount={todo.length}
 	    itemSize={75}
-	    width={'100%'}
+	    width={'130%'}
 	  >
 	    {Row}
 	  </List>
@@ -33,3 +36,5 @@ const Row = ({ index, style }) => (
 }
 
 export default DatagridTable;
+
+

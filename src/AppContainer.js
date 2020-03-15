@@ -8,7 +8,10 @@ import {
   setTodo,
   setActiveTitle,
   setActiveTitleIsUp,
-  setIsTodoLoaded
+  setIsTodoLoaded,
+  setActiveColumns,
+  setColumnsStatus,
+  setActiveTitles
 } from './store/app/actions'
 
 
@@ -20,7 +23,10 @@ const mapStateToProps = state => {
     activeTitleIsUp: state.app.activeTitleIsUp,
     isTodoLoaded: state.app.isTodoLoaded,
     todo: state.app.todo,
-    todoToRender : state.app.todoToRender
+    todoToRender: state.app.todoToRender,
+    activeColumns: state.app.activeColumns,
+    columnsStatus: state.app.columnsStatus,
+    activeTitles: state.app.activeTitles
   }
 }
  
@@ -29,7 +35,11 @@ const mapDispatchToProps = {
   setTodo,
   setActiveTitle,
   setActiveTitleIsUp,
-  setIsTodoLoaded
+  setIsTodoLoaded,
+  setActiveColumns,
+  setColumnsStatus,
+  setActiveTitles
+
 }
 
 
@@ -43,12 +53,18 @@ class AppContainer extends Component {
         isTodoLoaded={this.props.isTodoLoaded}
         todo={this.props.todo} 
         todoToRender={this.props.todoToRender}
+        activeColumns={this.props.activeColumns}
+        columnsStatus={this.props.columnsStatus}
+        activeTitles={this.props.activeTitles}
 
         setTodoToRender={this.props.setTodoToRender} 
         setTodo={this.props.setTodo}
         setActiveTitle={this.props.setActiveTitle}
         setActiveTitleIsUp={this.props.setActiveTitleIsUp}
         setIsTodoLoaded={this.props.setIsTodoLoaded}
+        setActiveColumns={this.props.setActiveColumns}
+        setColumnsStatus={this.props.setColumnsStatus}
+        setActiveTitles={this.props.setActiveTitles}
         />
      
     )
