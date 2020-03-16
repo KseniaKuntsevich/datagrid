@@ -23,6 +23,15 @@ class App extends Component {
     this.onMultipleTittleClick = this.onMultipleTittleClick.bind(this)
     this.activeFiltres = {}
     this.titles = ['id', 'user', 'title', 'completed', 'importance', 'category', 'date']
+    this.colClasses = {
+      id: "col-1",
+      user: "col",
+      title: "col-5",
+      completed: "col-1",
+      importance: "col-1",
+      category: "col",
+      date: "col",
+    }
 
     document.addEventListener('keydown', (e) => this.isShiftDown = e.key === 'Shift' ? true : this.isShiftDown )
     document.addEventListener('keyup', (e) => this.isShiftDown = e.key === 'Shift' ? false : this.isShiftDown )
@@ -91,8 +100,10 @@ class App extends Component {
       })
       this.activeRows = []
     }
+
     this.activeRows.push(index)
     this.props.setTodoToRender(newTodoToRender)
+    console.log(this.activeRows)
   }
 
   deleteRow() {
@@ -171,12 +182,13 @@ class App extends Component {
               rows={[
                 <HeaderToggle onClick={this.onColumnToggle} titles={this.titles} columnsStatus={this.props.columnsStatus} />,
                 <button onClick={this.deleteRow} className="btn btn-outline-danger mb-3">Delete row</button>,
-                <HeaderTitles activeTitles={this.props.activeTitles} activeTitle={this.props.activeTitle} activeTitleIsUp={this.props.activeTitleIsUp} onClick={this.onTittleClick} list={this.props.activeColumns} />,
-                <HeaderSearches onClick={this.onTittleSearch} list={this.props.activeColumns}/>,
+                <HeaderTitles colClasses={this.colClasses} activeTitles={this.props.activeTitles} activeTitle={this.props.activeTitle} activeTitleIsUp={this.props.activeTitleIsUp} onClick={this.onTittleClick} list={this.props.activeColumns} />,
+                <HeaderSearches colClasses={this.colClasses} onClick={this.onTittleSearch} list={this.props.activeColumns}/>,
               ]}
              />,
             body: 
             <DatagridTable 
+              colClasses={this.colClasses}
               onClick={this.onRowClick}
               activeColumns={this.props.activeColumns}
               todo={this.props.todoToRender}  

@@ -8,7 +8,8 @@ body {
                                   supported by Chrome, Opera and Firefox */
 }
 
-.gallery-container {
-   position: -webkit-sticky !important;
-   position: sticky !important;
+p, span, div, button, input{
+	font-size: 15px !important;
+	font-weight: lighter !important;
+
 }
