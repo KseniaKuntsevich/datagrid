@@ -27,10 +27,10 @@ class App extends Component {
       id: "col-1",
       user: "col",
       title: "col-5",
-      completed: "col-1",
-      importance: "col-1",
+      completed: "col",
+      importance: "col",
       category: "col",
-      date: "col",
+      date: "col-2",
     }
 
     document.addEventListener('keydown', (e) => this.isShiftDown = e.key === 'Shift' ? true : this.isShiftDown )
@@ -90,20 +90,23 @@ class App extends Component {
     ))
   }
 
+  discardRows(){
+        
+    this.activeRows.forEach(index => {
+      delete this.props.todoToRender[index].isActive
+    })
+    this.activeRows = []
+    
+
+  }
+
   onRowClick(index){
     const newTodoToRender = [...this.props.todoToRender]
+    const isClickedTwice = this.activeRows.indexOf(index) > -1
     newTodoToRender[index].isActive = true
-
-    if(!this.isShiftDown){
-      this.activeRows.forEach(index => {
-        delete this.props.todoToRender[index].isActive
-      })
-      this.activeRows = []
-    }
-
-    this.activeRows.push(index)
+    if(!this.isShiftDown){ this.discardRows() }
+    if(!isClickedTwice){ this.activeRows.push(index) }
     this.props.setTodoToRender(newTodoToRender)
-    console.log(this.activeRows)
   }
 
   deleteRow() {
