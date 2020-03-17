@@ -8,6 +8,7 @@ import HeaderToggle from './components/HeaderToggle'
 import HeaderSearches from './components/HeaderSearches'
 import MainSearch from './components/MainSearch'
 import SaveCSV from './components/SaveCSV'
+import VirtualToggle from './components/VirtualToggle'
 import 'bootstrap/dist/css/bootstrap.css';
 
 
@@ -22,6 +23,7 @@ class App extends Component {
     this.onTittleSearch = this.onTittleSearch.bind(this)
     this.onColumnToggle = this.onColumnToggle.bind(this)
     this.onMultipleTittleClick = this.onMultipleTittleClick.bind(this)
+    this.onTableIsVirtualToogle = this.onTableIsVirtualToogle.bind(this)
     this.activeFiltres = JSON.parse(localStorage.getItem('activeFiltres')) || {}
     this.titles = ['id', 'user', 'title', 'completed', 'importance', 'category', 'date']
     this.colClasses = {
@@ -99,6 +101,10 @@ class App extends Component {
       }
       )
     ))
+  }
+
+  onTableIsVirtualToogle(){
+    this.props.setIsTableVirtual(!this.props.isTableVirtual)
   }
 
   discardRows(){
@@ -190,8 +196,11 @@ class App extends Component {
       <div className="container-fluid p-0">
       <div className="p-4">
         <SaveCSV todo={this.props.todoToRender} activeColumns={this.props.activeColumns} />
+        <VirtualToggle onClick={this.onTableIsVirtualToogle} isActive={this.props.isTableVirtual} />
+        
         <HeaderToggle onClick={this.onColumnToggle} titles={this.titles} columnsStatus={this.props.columnsStatus} />
         <button onClick={this.deleteRow} className="btn btn-outline-danger mb-3">Delete row</button>
+        
         <MainSearch onClick={this.onTittleSearch}/>
       </div>
       { 
@@ -206,7 +215,8 @@ class App extends Component {
               ]}
              />,
             body: 
-            <DatagridTable 
+            <DatagridTable
+              isTableVirtual={this.props.isTableVirtual}
               colClasses={this.colClasses}
               onClick={this.onRowClick}
               activeColumns={this.props.activeColumns}

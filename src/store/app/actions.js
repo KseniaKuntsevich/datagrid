@@ -6,6 +6,7 @@ export const CHANGE_IS_TODO_LOADED = 'CHANGE_IS_TODO_LOADED'
 export const CHANGE_ACTIVE_COLUMNS = 'CHANGE_ACTIVE_COLUMNS'
 export const CHANGE_COLUMNS_STATUS = 'CHANGE_COLUMNS_STATUS'
 export const CHANGE_ACTIVE_TITLES = 'CHANGE_ACTIVE_TITLES'
+export const CHANGE_IS_TABLE_VIRTUAL = 'CHANGE_IS_TABLE_VIRTUAL'
 
 export const setTodoToRender = todoToRender => ({
 	type: CHANGE_TODO_TO_RENDER,
@@ -48,5 +49,10 @@ export const setColumnsStatus = activeColumns => ({
 export const setActiveTitles = activeTitles => ({
 	type: CHANGE_ACTIVE_TITLES,
 	payload: activeTitles
+})
+
+export const setIsTableVirtual = bool => ({
+	type: CHANGE_IS_TABLE_VIRTUAL,
+	payload: bool
 })
 

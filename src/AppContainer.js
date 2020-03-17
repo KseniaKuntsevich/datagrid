@@ -11,7 +11,8 @@ import {
   setIsTodoLoaded,
   setActiveColumns,
   setColumnsStatus,
-  setActiveTitles
+  setActiveTitles,
+  setIsTableVirtual
 } from './store/app/actions'
 
 
@@ -26,7 +27,8 @@ const mapStateToProps = state => {
     todoToRender: state.app.todoToRender,
     activeColumns: state.app.activeColumns,
     columnsStatus: state.app.columnsStatus,
-    activeTitles: state.app.activeTitles
+    activeTitles: state.app.activeTitles,
+    isTableVirtual: state.app.isTableVirtual
   }
 }
  
@@ -38,8 +40,8 @@ const mapDispatchToProps = {
   setIsTodoLoaded,
   setActiveColumns,
   setColumnsStatus,
-  setActiveTitles
-
+  setActiveTitles,
+  setIsTableVirtual
 }
 
 
@@ -56,6 +58,7 @@ class AppContainer extends Component {
         activeColumns={this.props.activeColumns}
         columnsStatus={this.props.columnsStatus}
         activeTitles={this.props.activeTitles}
+        isTableVirtual={this.props.isTableVirtual}
 
         setTodoToRender={this.props.setTodoToRender} 
         setTodo={this.props.setTodo}
@@ -65,6 +68,7 @@ class AppContainer extends Component {
         setActiveColumns={this.props.setActiveColumns}
         setColumnsStatus={this.props.setColumnsStatus}
         setActiveTitles={this.props.setActiveTitles}
+        setIsTableVirtual={this.props.setIsTableVirtual}
         />
      
     )

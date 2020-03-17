@@ -6,7 +6,8 @@ import {
 	CHANGE_IS_TODO_LOADED,
 	CHANGE_ACTIVE_COLUMNS,
 	CHANGE_COLUMNS_STATUS,
-	CHANGE_ACTIVE_TITLES
+	CHANGE_ACTIVE_TITLES,
+	CHANGE_IS_TABLE_VIRTUAL
 } from './actions'
 
 const defaultState = {
@@ -17,7 +18,8 @@ const defaultState = {
   todoToRender : JSON.parse(localStorage.getItem('todoToRender')) || null,
   activeColumns: JSON.parse(localStorage.getItem('activeColumns'))  || null,
   columnsStatus: JSON.parse(localStorage.getItem('columnsStatus')) || null,
-  activeTitles: []
+  activeTitles: [],
+  isTableVirtual: true
 }
 
 
@@ -65,6 +67,11 @@ export const appReducer = (state = defaultState, action) => {
 		    return {
 		    	...state,
 		    	activeTitles: action.payload
+		    };
+		case CHANGE_IS_TABLE_VIRTUAL:
+		    return {
+		    	...state,
+		    	isTableVirtual: action.payload
 		    };
 		default: ;
 	}

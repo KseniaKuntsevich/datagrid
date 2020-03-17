@@ -1,7 +1,7 @@
 import React from 'react';
 import { FixedSizeList as List } from 'react-window';
 
-function DatagridTable({ todo, activeColumns, onClick, colClasses }) {
+function DatagridTable({ todo, activeColumns, onClick, colClasses, isTableVirtual}) {
 
 const Row = ({ index, style }) => (
   <div 
@@ -13,7 +13,6 @@ const Row = ({ index, style }) => (
       const isSticky = column === 'user' || column === 'id'
       let cl = isSticky ? 'sticky-horizontal position-absolute w-100' : ''
       let style = isSticky ? {backgroundColor: todo[index].isActive ? '#6c757d' : '#f8f9fa', zIndex: 10, height: '36px'} : {}
-      
       return(
         <div key={i} className={colClasses[column]}>
           <div
@@ -38,9 +37,21 @@ const Row = ({ index, style }) => (
 	  </List>
 	);
 
+  const TableNotVirtual = () => (
+    <table style={{width: activeColumns.length * 18 + '%'}}>
+      <tbody>
+       {todo.map((item, i) => (
+           <tr><Row index={i} /></tr>
+        ))}
+      </tbody>
+    </table>
+  )
+
   return (
     <div>
-      <div className="container-fluid"><Table /></div>
+      <div className="container-fluid">
+        {isTableVirtual ? <Table /> : <TableNotVirtual />}
+      </div>
     </div>
   );
 }
