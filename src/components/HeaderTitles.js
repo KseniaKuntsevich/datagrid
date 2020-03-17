@@ -1,9 +1,11 @@
 import React from 'react';
 
 function  HeaderTitles ({ list, onClick, activeTitle, activeTitles, activeTitleIsUp, colClasses }){
-
+  let width = list.length * 18
+  width = width < 100 ? 100 : width
+  width += '%'
   return (
-    <div style={{width: list.length * 18 + '%', cursor: 'pointer'}} className='row bg-light'>
+    <div style={{width, cursor: 'pointer'}} className='row bg-light pl-3'>
       {
       	list.map((title, i) => {
       		const isActive = title === activeTitle || activeTitles.indexOf(title) > -1

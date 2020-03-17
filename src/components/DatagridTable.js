@@ -3,6 +3,11 @@ import { FixedSizeList as List } from 'react-window';
 
 function DatagridTable({ todo, activeColumns, onClick, colClasses, isTableVirtual}) {
 
+let width = activeColumns.length * 18
+width = width < 100 ? 100 : width
+width += '%'
+
+
 const Row = ({ index, style }) => (
   <div 
     className={todo[index].isActive ? "row bg-secondary border-top" : "row border-top"}
@@ -31,14 +36,14 @@ const Row = ({ index, style }) => (
 	    height={1000}
 	    itemCount={todo.length}
 	    itemSize={37}
-	    width={activeColumns.length * 18 + '%'}
+	    width={width}
 	  >
 	    {Row}
 	  </List>
 	);
 
   const TableNotVirtual = () => (
-    <table style={{width: activeColumns.length * 18 + '%'}}>
+    <table style={{width}}>
       <tbody>
        {todo.map((item, i) => (
            <tr><Row index={i} /></tr>

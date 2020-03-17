@@ -107,8 +107,12 @@ function HeaderSearches({ list, onClick, colClasses }) {
   date: search,
   }
 
+  let width = list.length * 18
+  width = width < 100 ? 100 : width
+  width += '%'
+
   return (
-    <div style={{width: list.length * 18 + '%'}} className='row bg-light pb-4'>
+    <div style={{width}} className='row bg-light pb-4 pl-3'>
       {list.map((item, i) => <div key={i} className={colClasses[item]}>{colSearches[item](item, onClick)}</div>)
       }
     </div>
