@@ -84,6 +84,9 @@ class App extends Component {
     }
     return this.props.todo.filter(data => (
       Object.keys(activeFiltres).every(title => {
+        if(typeof data[title] === 'number'){
+          return data[title] === activeFiltres[title]
+        }
         return (''+data[title]).indexOf(activeFiltres[title]) > -1
       }
       )
@@ -91,13 +94,10 @@ class App extends Component {
   }
 
   discardRows(){
-        
     this.activeRows.forEach(index => {
       delete this.props.todoToRender[index].isActive
     })
     this.activeRows = []
-    
-
   }
 
   onRowClick(index){
@@ -119,12 +119,15 @@ class App extends Component {
     if(!this.props.todo[0].hasOwnProperty(title)) {
       return this.props.todoToRender
     }
-    return [...this.props.todo].sort((a, b) => (a[title] < b[title] ? -1 : 1))
+    return [...this.props.todoToRender].sort((a, b) => (a[title] < b[title] ? -1 : 1))
   }
 
   onTittleSearch(title, str) {
-    this.props.setTodoToRender(this.getTodoFilteredBy(title, str))
-    localStorage.setItem('todoToRender', JSON.stringify(this.props.todoToRender))
+    let newTodoToRender = this.getTodoFilteredBy(title, str)
+    this.props.setActiveTitleIsUp(false)
+    this.props.setTodoToRender(newTodoToRender)
+    localStorage.setItem('todoToRender', JSON.stringify(newTodoToRender))
+    localStorage.setItem('activeTitleIsUp', false)
   }
 
   onMultipleTittleClick(title){
@@ -143,6 +146,7 @@ class App extends Component {
       return res
     })
     setTodoToRender(newTodoToRender)
+    localStorage.setItem('todoToRender', JSON.stringify(newTodoToRender))
   }
 
   onTittleClick(title){
