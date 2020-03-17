@@ -77,17 +77,18 @@ class App extends Component {
     if(!this.props.todo[0].hasOwnProperty(title)) {
       return this.props.todoToRender
     }
-    if(str.length === 0){
+    if(!str){
       delete activeFiltres[title];
     } else {
       activeFiltres[title] = str;
     }
     return this.props.todo.filter(data => (
       Object.keys(activeFiltres).every(title => {
+        return activeFiltres[title](data[title])
         if(typeof data[title] === 'number'){
           return data[title] === activeFiltres[title]
         }
-        return (''+data[title]).indexOf(activeFiltres[title]) > -1
+        return (''+data[title].toLowerCase()).indexOf(activeFiltres[title]) > -1
       }
       )
     ))
@@ -128,6 +129,7 @@ class App extends Component {
     this.props.setTodoToRender(newTodoToRender)
     localStorage.setItem('todoToRender', JSON.stringify(newTodoToRender))
     localStorage.setItem('activeTitleIsUp', false)
+
   }
 
   onMultipleTittleClick(title){
