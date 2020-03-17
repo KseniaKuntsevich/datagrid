@@ -6,15 +6,19 @@ function HeaderSearches({ list, onClick, colClasses }) {
   const onStrSearch = (e, title) => {
   	const val = e.target.value.toLowerCase()
   	localStorage.setItem(title, val)
-  	const arg = e.target.value.length ? (data) => (data.toLowerCase().indexOf(val) > -1) : null
-  	onClick(title, arg)
+  	onClick(title, val)
   }
 
-  const search = (title, onClick) => (<input 
-  	className="form-control"
-  	defaultValue={localStorage.getItem(title)}
-  	onBlur={(e) => onStrSearch(e, title)} 
-  	placeholder='search' />)
+  const search = (title, onClick) => (
+  	<div className="input-group mb-3">
+ 	  	<input 
+	  	className="form-control"
+	  	defaultValue={localStorage.getItem(title)}
+	  	onBlur={(e) => onStrSearch(e, title)} 
+	  	placeholder='search' />
+	    <button className="btn btn-light border"><img src="https://image.flaticon.com/icons/svg/482/482631.svg" style={{width: 15}} alt="search"/></button>
+    </div>
+  	)
   
   const categorySelect = (title, onClick) => {
   	const activeOption = localStorage.getItem(title)
@@ -50,15 +54,16 @@ function HeaderSearches({ list, onClick, colClasses }) {
 	    className="form-check-input"
 	    type="checkbox" name="inlineRadioOptions"
 	    id="rangeAll"
-	    value=''/>
+	    value=''
+	    defaultChecked={!localStorage.getItem(title)}
+	    />
 
 	<label className="form-check-label" htmlFor="inlineRadio">all</label>
     <input onChange={(e) => { 
 	    	document.getElementById('rangeAll').checked = false
 	    	const val = e.target.value
 	    	localStorage.setItem(title, val)
-	        const arg = (n) => (+n === +val)
-	  		onClick(title, arg )
+	  		onClick(title, val )
 	    }}
 		type="range"
 		className="custom-range"
@@ -70,11 +75,10 @@ function HeaderSearches({ list, onClick, colClasses }) {
   )
 
     const idSearch = (title, onClick) => {
-	    const val1 = localStorage.getItem('doubleRange1')
-	    const val2 = localStorage.getItem('doubleRange2')
+	    const val1 = localStorage.getItem('doubleRange1') || 1
+	    const val2 = localStorage.getItem('doubleRange2') || 1000
 	    return (
 		    <div id="doubleRange" onChange={(e) => { 
-		    	    e.target.value =e.target.value
 			    	const inps = document.getElementById('doubleRange').querySelectorAll('.doubleRange')
 			    	const inpsLabels = document.getElementById('doubleRange').querySelectorAll('.doubleRange-label')
 			    	const val1 = +inps[0].value
@@ -83,8 +87,7 @@ function HeaderSearches({ list, onClick, colClasses }) {
 			    	inpsLabels[1].textContent = val2
 			    	localStorage.setItem('doubleRange1', val1)
 			    	localStorage.setItem('doubleRange2', val2)
-			        const arg = (n) => (+n >= val1 && +n <= val2)
-			  		onClick(title, arg )
+			  		onClick(title, [val1, val2])
 			     }}>
 		        <label>from <span className="doubleRange-label">{val1}</span></label>
 			    <input defaultValue={val1} type="range" className="custom-range doubleRange" min="0" max="1000" default="1" step="10" id="customRange2" />

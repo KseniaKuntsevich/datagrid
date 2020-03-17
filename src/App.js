@@ -6,6 +6,7 @@ import DatagridHeader from './components/DatagridHeader.js';
 import HeaderTitles from './components/HeaderTitles'
 import HeaderToggle from './components/HeaderToggle'
 import HeaderSearches from './components/HeaderSearches'
+import MainSearch from './components/MainSearch'
 import SaveCSV from './components/SaveCSV'
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -21,7 +22,7 @@ class App extends Component {
     this.onTittleSearch = this.onTittleSearch.bind(this)
     this.onColumnToggle = this.onColumnToggle.bind(this)
     this.onMultipleTittleClick = this.onMultipleTittleClick.bind(this)
-    this.activeFiltres = {}
+    this.activeFiltres = JSON.parse(localStorage.getItem('activeFiltres')) || {}
     this.titles = ['id', 'user', 'title', 'completed', 'importance', 'category', 'date']
     this.colClasses = {
       id: "col-1",
@@ -74,21 +75,27 @@ class App extends Component {
 
   getTodoFilteredBy(title, str) {
     const { activeFiltres } = this
-    if(!this.props.todo[0].hasOwnProperty(title)) {
-      return this.props.todoToRender
-    }
-    if(!str){
+    if(!str.length){
       delete activeFiltres[title];
     } else {
       activeFiltres[title] = str;
     }
+    localStorage.setItem('activeFiltres', JSON.stringify(activeFiltres))
     return this.props.todo.filter(data => (
       Object.keys(activeFiltres).every(title => {
-        return activeFiltres[title](data[title])
-        if(typeof data[title] === 'number'){
-          return data[title] === activeFiltres[title]
+        let n = title === 'main' ? 
+          Object.keys(data).reduce( (a, b) => (a + data[b]), '') :
+          data[title];
+
+        const val = activeFiltres[title]
+        if(title === 'importance'){
+          return +n === +val
+        } else if(title === 'id') {
+          return +n >= val[0] && +n <= val[1]
+        } else {
+          return n.toLowerCase().indexOf(val) > -1
         }
-        return (''+data[title].toLowerCase()).indexOf(activeFiltres[title]) > -1
+        
       }
       )
     ))
@@ -181,7 +188,12 @@ class App extends Component {
   render() {
     return(
       <div className="container-fluid p-0">
-      <SaveCSV todo={this.props.todoToRender} activeColumns={this.props.activeColumns} />
+      <div className="p-4">
+        <SaveCSV todo={this.props.todoToRender} activeColumns={this.props.activeColumns} />
+        <HeaderToggle onClick={this.onColumnToggle} titles={this.titles} columnsStatus={this.props.columnsStatus} />
+        <button onClick={this.deleteRow} className="btn btn-outline-danger mb-3">Delete row</button>
+        <MainSearch onClick={this.onTittleSearch}/>
+      </div>
       { 
         this.props.isTodoLoaded ? 
         <Datagrid 
@@ -189,8 +201,6 @@ class App extends Component {
             header: 
             <DatagridHeader 
               rows={[
-                <HeaderToggle onClick={this.onColumnToggle} titles={this.titles} columnsStatus={this.props.columnsStatus} />,
-                <button onClick={this.deleteRow} className="btn btn-outline-danger mb-3">Delete row</button>,
                 <HeaderTitles colClasses={this.colClasses} activeTitles={this.props.activeTitles} activeTitle={this.props.activeTitle} activeTitleIsUp={this.props.activeTitleIsUp} onClick={this.onTittleClick} list={this.props.activeColumns} />,
                 <HeaderSearches colClasses={this.colClasses} onClick={this.onTittleSearch} list={this.props.activeColumns}/>,
               ]}

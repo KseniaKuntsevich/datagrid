@@ -17,7 +17,6 @@ export const setTodo = todo => ({
 	payload: todo
 })
 
-
 export const setActiveTitle = activeTitle => ({
 	type: CHANGE_ACTIVE_TITLE,
 	payload: activeTitle

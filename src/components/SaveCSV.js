@@ -12,15 +12,7 @@ function SaveCSV({ todo, activeColumns }) {
 
   }
   const save = () => {
-  	const rows = [
-	    ["name1", "city1", "some other info"],
-	    ["name2", "city2", "more info"]
-	];
-
 	let csvContent = getTodoCVD()
-
-
-
 	var encodedUri = encodeURI(csvContent);
 	var link = document.createElement("a");
 	link.setAttribute("href", encodedUri);
@@ -34,7 +26,7 @@ function SaveCSV({ todo, activeColumns }) {
   return (
     <div style={{cursor: 'pointer'}} onClick={save} className='p-3 pb-4 text-right text-primary'>
       Download
-      <img style={{width: 20}} className='ml-2' src="https://image.flaticon.com/icons/svg/1263/1263920.svg"/>
+      <img alt="csv" style={{width: 20}} className='ml-2' src="https://image.flaticon.com/icons/svg/1263/1263920.svg"/>
     </div>
   );
 }

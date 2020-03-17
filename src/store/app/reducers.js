@@ -5,7 +5,6 @@ import {
 	CHANGE_ACTIVE_TITLE_IS_UP,
 	CHANGE_IS_TODO_LOADED,
 	CHANGE_ACTIVE_COLUMNS,
-	CHANGE_COLUMNS_KEYS,
 	CHANGE_COLUMNS_STATUS,
 	CHANGE_ACTIVE_TITLES
 } from './actions'
@@ -67,7 +66,7 @@ export const appReducer = (state = defaultState, action) => {
 		    	...state,
 		    	activeTitles: action.payload
 		    };
-
+		default: ;
 	}
 	return state
 }
