@@ -41,7 +41,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    if(this.props.todo) {
+    if(this.props.todo.length) {
       return 
     }
     const names = ['Tom Plushkin', 'Anna Jukova', 'Petya Petrov', 'Lev Andreevich']

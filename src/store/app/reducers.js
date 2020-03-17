@@ -13,11 +13,11 @@ import {
 const defaultState = {
   activeTitle: localStorage.getItem('activeTitle') || 'id',
   activeTitleIsUp: localStorage.getItem('activeTitleIsUp') === 'true',
-  isTodoLoaded: localStorage.getItem('isTodoLoaded') || null,
-  todo: JSON.parse(localStorage.getItem('todo')) || null,
-  todoToRender : JSON.parse(localStorage.getItem('todoToRender')) || null,
-  activeColumns: JSON.parse(localStorage.getItem('activeColumns'))  || null,
-  columnsStatus: JSON.parse(localStorage.getItem('columnsStatus')) || null,
+  isTodoLoaded: localStorage.getItem('isTodoLoaded') || false,
+  todo: JSON.parse(localStorage.getItem('todo')) || [],
+  todoToRender : JSON.parse(localStorage.getItem('todoToRender')) || [],
+  activeColumns: JSON.parse(localStorage.getItem('activeColumns'))  || [],
+  columnsStatus: JSON.parse(localStorage.getItem('columnsStatus')) || {},
   activeTitles: [],
   isTableVirtual: true
 }
